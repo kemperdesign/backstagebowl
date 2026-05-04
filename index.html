@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheBackstageBowl.com - Rock & Roll Soup Food Truck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --red: #C41E3A;
+            --gold: #FFD700;
+            --orange: #FF6B35;
+            --light: #f5f5f5;
+            --text-dark: #0a0a0a;
+            --text-light: #f5f5f5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Spotlight effect background */
+        .spotlight-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(circle 800px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 215, 0, 0.03) 0%, transparent 100%);
+            mix-blend-mode: screen;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--gold);
+            padding: 1rem 2rem;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--gold);
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.2) 0%, rgba(10, 10, 10, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .hero-spotlight {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: spotlight-move 8s ease-in-out infinite;
+            filter: blur(40px);
+        }
+
+        .hero-spotlight:nth-child(2) {
+            animation: spotlight-move-alt 10s ease-in-out infinite;
+            background: radial-gradient(circle, rgba(196, 30, 58, 0.15) 0%, transparent 70%);
+        }
+
+        @keyframes spotlight-move {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(100px, 100px); }
+        }
+
+        @keyframes spotlight-move-alt {
+            0%, 100% { transform: translate(-100px, -100px); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fade-in-up 1s ease-out;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 7rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(196, 30, 58, 0.4);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            color: var(--light);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--red);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--red);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--orange);
+            z-index: -1;
+            transition: left 0.3s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 3rem;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--red);
+        }
+
+        /* Menu Section */
+        #menu {
+            background: linear-gradient(180deg, var(--dark-gray) 0%, var(--dark) 100%);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 2px solid var(--red);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 215, 0, 0.05);
+            transform: translateY(-10px);
+        }
+
+        .menu-card:hover::before {
+            opacity: 1;
+        }
+
+        .menu-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu-card h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .menu-card p {
+            color: var(--light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .song-credit {
+            font-size: 0.85rem;
+            color: var(--orange);
+            margin-top: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--dark);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            color: var(--red);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .about-image {
+            height: 400px;
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.2) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 3px solid var(--red);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-100%, -100%); }
+            100% { transform: translate(100%, 100%); }
+        }
+
+        /* Location Section */
+        #location {
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-gray) 100%);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .location-card {
+            background: var(--dark-gray);
+            border-left: 4px solid var(--gold);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .location-card h3 {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .location-card p {
+            color: var(--light);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--dark);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content h3 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 2.2rem;
+            color: var(--red);
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+            border: 1px solid var(--red);
+            padding: 1.5rem;
+        }
+
+        .contact-item label {
+            display: block;
+            color: var(--gold);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-item a,
+        .contact-item p {
+            font-size: 1.1rem;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            section h2 {
+                font-size: 2.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Glitch effect on text */
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 30px rgba(255, 215, 0, 0.6), 0 0 60px rgba(196, 30, 58, 0.4); }
+            50% { text-shadow: 0 0 20px rgba(255, 107, 53, 0.6), 0 0 40px rgba(255, 215, 0, 0.4); }
+        }
+
+        .glitch-text {
+            animation: glitch 2s ease-in-out infinite;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            border-top: 2px solid var(--gold);
+            padding: 2rem;
+            text-align: center;
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="spotlight-bg"></div>
+
+    <nav class="content">
+        <div class="logo">The Backstage Bowl</div>
+        <ul>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#location">Location</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-spotlight"></div>
+            <div class="hero-spotlight"></div>
+            <div class="hero-content">
+                <h1 class="glitch-text">The Backstage Bowl</h1>
+                <div class="hero-subtitle">Rock & Roll Soup Experience</div>
+                <p class="hero-tagline">The Ultimate Soup Truck Serving St. Johns & Beyond</p>
+                <a href="#menu" class="cta-button">See Our Menu</a>
+            </div>
+        </section>
+
+        <!-- Menu Section -->
+        <section id="menu">
+            <h2>Our Setlist</h2>
+            <div class="menu-grid">
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Cream of Wild Mushroom & Leek</h3>
+                        <p>Earthy, rich, and deeply satisfying. A creamy classic with fresh leeks and wild mushrooms.</p>
+                        <div class="song-credit">♪ A timeless favorite</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Datil Chili</h3>
+                        <p>Florida heat meets bold spice. A fiery blend that brings the rock and roll energy to your bowl.</p>
+                        <div class="song-credit">♪ Spice up your life</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Chicken Vegetable & Orzo</h3>
+                        <p>Tender chicken with fresh vegetables and pearl-shaped pasta. Pure comfort in every spoon.</p>
+                        <div class="song-credit">♪ The comfort anthem</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Corn Chowder</h3>
+                        <p>Sweet corn kernels in a creamy, comforting base. Summer in a bowl.</p>
+                        <div class="song-credit">♪ Sweet sensation</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>New England Clam Chowder</h3>
+                        <p>The northeast classic. Tender clams, potatoes, and cream that tastes like the Atlantic Ocean.</p>
+                        <div class="song-credit">♪ Waves of flavor</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Minorcan Clam Chowder</h3>
+                        <p>A Florida twist on a classic. Our unique take with Spanish influences and local flair.</p>
+                        <div class="song-credit">♪ Local legend</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Crab Bisque</h3>
+                        <p>Luxurious and decadent. Sweet crab meat in a silky, smooth bisque.</p>
+                        <div class="song-credit">♪ Smooth operator</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Broccoli & Cheese</h3>
+                        <p>Vibrant broccoli in a creamy cheese sauce. The ultimate comfort classic.</p>
+                        <div class="song-credit">♪ Cheesy vibes</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Tomato Basil</h3>
+                        <p>Fresh tomatoes with aromatic basil. Mediterranean sunshine in every sip.</p>
+                        <div class="song-credit">♪ Garden fresh</div>
+                    </div>
+                </div>
+
+                <div class="menu-card">
+                    <div class="menu-card-content">
+                        <h3>Butternut Squash</h3>
+                        <p>Sweet and savory. Roasted butternut squash soup with a hint of warmth.</p>
+                        <div class="song-credit">♪ Autumn nights</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(196, 30, 58, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%); border: 2px dashed var(--gold);">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;"><strong>Plus:</strong> Hot Dogs & Grilled Cheese Sandwiches</p>
+                <p style="color: var(--orange); font-style: italic;">The perfect encore to any soup experience</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>The Story</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Rock & Roll Soul</h3>
+                    <p>The Backstage Bowl isn't just a food truck—it's a <span class="about-highlight">concert experience on wheels</span>. We believe food should have energy, personality, and soul.</p>
+                    <p>Every soup on our menu is <span class="about-highlight">named after songs</span> that move us, inspire us, and make us want to turn up the volume. From classic rock to contemporary hits, our menu celebrates the music that soundtracks our lives.</p>
+                    <p>Operating across <span class="about-highlight">St. Johns and surrounding counties</span>, we're bringing gourmet soup experiences to neighborhoods everywhere. Crafted with premium ingredients and served with rock-solid passion.</p>
+                    <p><span class="about-highlight">Turn up the bowl.</span> Experience the difference when food meets rock and roll.</p>
+                </div>
+                <div class="about-image">
+                    🎸🍲
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section id="location">
+            <h2>Find Us on Tour</h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h3>📍 Service Area</h3>
+                    <p><strong>Primary:</strong> St. Johns, FL</p>
+                    <p><strong>Coverage:</strong> Surrounding counties</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Check our social media for current location and tour schedule.</p>
+                </div>
+                <div class="location-card">
+                    <h3>🚀 Stay Updated</h3>
+                    <p>Follow us on social media for real-time location updates and daily specials.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">We move around to bring soup to different neighborhoods!</p>
+                </div>
+                <div class="location-card">
+                    <h3>🎵 The Vibe</h3>
+                    <p>Rock and roll energy. Premium soups. Street food with soul.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">Every visit is a backstage pass to flavor.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <label>📞 Phone</label>
+                        <a href="tel:+1276877625">(276) 877-6225</a>
+                    </div>
+                    <div class="contact-item">
+                        <label>✉️ Email</label>
+                        <a href="mailto:kemperdesignservices@gmail.com">kemperdesignservices@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <label>📍 Serving</label>
+                        <p>St. Johns & Surrounding Counties, FL</p>
+                    </div>
+                </div>
+                <a href="tel:+1276877625" class="cta-button">Call Us Now</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 The Backstage Bowl. TheBackstageBowl.com | (276) 877-6225 | Rock On. 🎸</p>
+    </footer>
+
+    <script>
+        // Mouse tracking for spotlight effect
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth) * 100;
+            const y = (e.clientY / window.innerHeight) * 100;
+            document.querySelector('.spotlight-bg').style.setProperty('--mouse-x', x + '%');
+            document.querySelector('.spotlight-bg').style.setProperty('--mouse-y', y + '%');
+        });
+
+        // Scroll animation for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fade-in-up 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-card').forEach(card => {
+            card.style.opacity = '0';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
