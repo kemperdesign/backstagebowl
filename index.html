@@ -35,6 +35,19 @@
             color: var(--text-light);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        .page-bg-video {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.15;
+            pointer-events: none;
         }
 
         /* Spotlight effect background */
@@ -265,6 +278,8 @@
             padding: 5rem 2rem;
             max-width: 1400px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         section h2 {
@@ -291,7 +306,7 @@
 
         /* Menu Section */
         #menu {
-            background: linear-gradient(180deg, var(--dark-gray) 0%, var(--dark) 100%);
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.95) 0%, rgba(10, 10, 10, 0.95) 100%);
         }
 
         .menu-grid {
@@ -362,7 +377,7 @@
 
         /* About Section */
         #about {
-            background: var(--dark);
+            background: rgba(10, 10, 10, 0.95);
         }
 
         .about-content {
@@ -420,7 +435,7 @@
 
         /* Location Section */
         #location {
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-gray) 100%);
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.95) 0%, rgba(26, 26, 26, 0.95) 100%);
         }
 
         .location-grid {
@@ -451,7 +466,7 @@
 
         /* Contact Section */
         #contact {
-            background: var(--dark);
+            background: rgba(10, 10, 10, 0.95);
             text-align: center;
         }
 
@@ -559,6 +574,10 @@
 </head>
 <body>
     <div class="spotlight-bg"></div>
+
+    <video autoplay muted loop playsinline class="page-bg-video">
+        <source src="mp_.mp4" type="video/mp4">
+    </video>
 
     <nav class="content">
         <div class="logo">The Backstage Bowl</div>
